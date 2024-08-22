@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading;
-class TrabajoPractico2
+﻿class TrabajoPractico2
 {
+    // Definición de variables.
     static int codigoVuelo1 = 1;
     static int codigoVuelo2 = 2;
     static int codigoVuelo3 = 3;
@@ -16,6 +15,7 @@ class TrabajoPractico2
     static int precioVuelo5 = 183000;
     static int precioVuelo6 = 183000;
 
+   
     static bool numeroVueloCorrecto = false;
     static int cantidadPasajes = -1;
     static int precioTotal = 0;
@@ -49,12 +49,12 @@ class TrabajoPractico2
 
     static void Main()
     {
-        Inicio();
-        Menú();
+        Inicio();// Muestra una pantalla de bienvenida inicial
+        Menú();// Muestra el menú principal y maneja la selección del usuario.
     }
-
-    static void Inicio()
+    static void Inicio() // Función correspondiente a la pantalla de bienvenida.
     {
+        Console.CursorVisible = false;
         Console.WriteLine("--------------------------------------");
         Console.WriteLine("|¡Bienvenido a Aerolíneas Argentinas!|");
         Console.WriteLine("--------------------------------------");
@@ -62,6 +62,7 @@ class TrabajoPractico2
         ConsoleColor colorBlanco = ConsoleColor.White;
         int ancho = 40;
         int alto = 9;
+
         for (int i = 0; i < alto; i++)
         {
 
@@ -83,37 +84,43 @@ class TrabajoPractico2
         }
 
 
+
         Console.BackgroundColor = colorOriginalFondo;
         Console.WriteLine("\nPresiona cualquier tecla para continuar...");
         Console.ReadKey();
 
 
-
-
-
     }
-    static void Menú()
+    static void Menú()//Función correspondiente al menu principal del programa.
     {
         ConsoleKeyInfo Flecha;
-
+        Console.CursorVisible = false;
         do
         {
 
             Console.Clear();
             Console.WriteLine("Use las flechas para moverse y Enter para seleccionar:\n");
 
-            Console.WriteLine((opcion == 0 ? "> " : "  ") + "Ver vuelos disponibles.");
-            Console.WriteLine((opcion == 1 ? "> " : "  ") + "Agregar al carrito.");
-            Console.WriteLine((opcion == 2 ? "> " : "  ") + "Pagar pasajes.");
-            Console.WriteLine((opcion == 3 ? "> " : "  ") + "Registrarse.");
-            Console.WriteLine((opcion == 4 ? "> " : "  ") + "Iniciar sesión.");
-            Console.WriteLine((opcion == 5 ? "> " : "  ") + "Borrar datos cargados.");
-            Console.WriteLine((opcion == 6 ? "> " : "  ") + "Salir del sistema.");
+            for (int i = 0; i <= 6; i++)
+            {
+                if (opcion == i)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green; // Cambia el color de la opcion seleccionada.
+                    Console.WriteLine($"> {MenuNumeros(i)}");
+                    Console.ForegroundColor = colorOriginalLetra; // Restaurar al color original.
+                }
+                else
+                {
+                    // Mostrar las otras opciones en el color normal.
+                    Console.WriteLine($" {MenuNumeros(i)}");
+                }
+            }
 
             Flecha = Console.ReadKey(true);
 
             if (Flecha.Key == ConsoleKey.UpArrow && opcion > 0) opcion--;
             if (Flecha.Key == ConsoleKey.DownArrow && opcion < 6) opcion++;
+
 
         } while (Flecha.Key != ConsoleKey.Enter);
 
@@ -168,7 +175,6 @@ class TrabajoPractico2
                     Console.WriteLine("Usted debe registrarse primero.");
                     EsperarYVolverAlMenu();
                 }
-
                 break;
             case 5:
                 if (registrado == true)
@@ -186,13 +192,36 @@ class TrabajoPractico2
             case 6:
                 Console.Clear();
                 Console.WriteLine("Saliendo del sistema.");
-                Console.WriteLine("Espero no haya tenido inconvenientes con el programa. ¡Hasta luego!");
+                Console.WriteLine("\nEspero no haya tenido inconvenientes con el programa. ¡Hasta luego!");
                 Thread.Sleep(2000);
                 return; // Salir del programa.
         }
     }
 
-    static void EsperarYVolverAlMenu()
+    static string MenuNumeros(int indice)// Devuelve el texto de las opciones del menú según el índice.
+    {
+        switch (indice)
+        {
+            case 0:
+                return "Ver vuelos disponibles";
+            case 1:
+                return "Agregar al carrito";
+            case 2:
+                return "Pagar pasajes";
+            case 3:
+                return "Registrarse";
+            case 4:
+                return "Iniciar sesión";
+            case 5:
+                return "Borrar datos cargados";
+            case 6:
+                return "Salir del sistema";
+            default:
+                return "";
+        }
+    }
+
+    static void EsperarYVolverAlMenu()// Espera que el usuario presione 'M' para volver al menú.
     {
         bool volverValido = false;
         while (volverValido != true)
@@ -214,8 +243,9 @@ class TrabajoPractico2
 
 
 
-    static void VueloDisponible()
+    static void VueloDisponible()// Muestra una tabla con los vuelos disponibles
     {
+
         Console.Clear();
         Console.WriteLine("------------------------------------------------------------------------------------------");
         Console.WriteLine("|Numero|       Origen        |       Destino       |Hora de Salida|Hora de llegada|Precio|");
@@ -233,13 +263,15 @@ class TrabajoPractico2
         Console.WriteLine("| " + codigoVuelo6 + "    |Bariloche            |Córdoba              |13:00         |15:00          |" + precioVuelo6 + "|");
         Console.WriteLine("------------------------------------------------------------------------------------------");
         Thread.Sleep(1500);
+
+
+
     }
 
-
-
-
-    static bool AgregarCarrito(bool agregoCarritoVuelo)
+    static bool AgregarCarrito(bool agregoCarritoVuelo)// Permite al usuario agregar un vuelo al carrito.
     {
+        Console.CursorVisible = true;
+
         numeroVueloCorrecto = false;
         cantidadPasajes = -1;
         int numeroViajeUsuario = 0;
@@ -254,7 +286,7 @@ class TrabajoPractico2
             }
             else
             {
-                Console.WriteLine("\nElija un número de vuelo existente.");
+                Console.WriteLine("Elija un número de vuelo existente.\n");
             }
         }
         Console.Write("Ingrese la fecha del viaje(dd/mm/YYYY/): ");
@@ -272,14 +304,18 @@ class TrabajoPractico2
 
         if (numeroViajeUsuario == codigoVuelo1 && fechaActual <= fechaViaje && cantidadPasajes > 0)
         {
-            Console.WriteLine("\nCarga realizada.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCarga realizada con exito!...");
+            Console.ForegroundColor = colorOriginalLetra;
             precioTotal = cantidadPasajes * precioVuelo1;
 
             return true;
         }
         else if (numeroViajeUsuario == codigoVuelo2 && fechaActual <= fechaViaje && cantidadPasajes > 0)
         {
-            Console.WriteLine("\nCarga realizada.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCarga realizada con exito!...");
+            Console.ForegroundColor = colorOriginalLetra;
             precioTotal = cantidadPasajes * precioVuelo2;
 
             return true;
@@ -288,7 +324,9 @@ class TrabajoPractico2
         }
         else if (numeroViajeUsuario == codigoVuelo3 && fechaActual <= fechaViaje && cantidadPasajes > 0)
         {
-            Console.WriteLine("\nCarga realizada.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCarga realizada con exito!...");
+            Console.ForegroundColor = colorOriginalLetra;
             precioTotal = cantidadPasajes * precioVuelo3;
 
             return true;
@@ -296,7 +334,9 @@ class TrabajoPractico2
         }
         else if (numeroViajeUsuario == codigoVuelo4 && fechaActual <= fechaViaje && cantidadPasajes > 0)
         {
-            Console.WriteLine("\nCarga realizada.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCarga realizada con exito!...");
+            Console.ForegroundColor = colorOriginalLetra;
             precioTotal = cantidadPasajes * precioVuelo4;
 
             return true;
@@ -305,7 +345,9 @@ class TrabajoPractico2
         }
         else if (numeroViajeUsuario == codigoVuelo5 && fechaActual <= fechaViaje && cantidadPasajes > 0)
         {
-            Console.WriteLine("\nCarga realizada.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCarga realizada con exito!...");
+            Console.ForegroundColor = colorOriginalLetra;
             precioTotal = cantidadPasajes * precioVuelo5;
 
             return true;
@@ -314,15 +356,20 @@ class TrabajoPractico2
         }
         else if (numeroViajeUsuario == codigoVuelo6 && fechaActual <= fechaViaje && cantidadPasajes > 0)
         {
-            Console.WriteLine("\nCarga realizada.");
-            precioTotal = cantidadPasajes * precioVuelo5;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCarga realizada con exito!...");
+            Console.ForegroundColor = colorOriginalLetra;
+            precioTotal = cantidadPasajes * precioVuelo6;
 
             return true;
         }
         else if (cantidadPasajes == 0 || fechaActual > fechaViaje)
         {
-            Console.WriteLine("No se cargo nada al carrito.");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nNo se cargo nada al carrito.");
             Console.WriteLine("Revise la cantidad de pasajes o la fecha del viaje.");
+            Console.ForegroundColor = colorOriginalLetra;
+            Thread.Sleep(1500);
             return false;
 
 
@@ -335,12 +382,10 @@ class TrabajoPractico2
         Thread.Sleep(3000);
     }
 
-
-
-
-    static bool PagarVuelo(bool agregoCarritoVuelo)
+    static bool PagarVuelo(bool agregoCarritoVuelo)// Calcula el precio total según el vuelo seleccionado y le permite al usuario pagar el/los vuelo/s.
     {
         Console.Clear();
+        Console.CursorVisible = true;
 
         Console.WriteLine($"El costo del viaje total con los pasajes seleccionados sin IVA es de: {precioTotal}$.");
         Console.WriteLine($"\nLa cantidad de pasajes comprados fue de: {cantidadPasajes}");
@@ -350,182 +395,232 @@ class TrabajoPractico2
         int cargaUsuario = int.Parse(Console.ReadLine());
         if (cargaUsuario == 1)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nSu compra ha sido confirmada.");
+            Console.ForegroundColor = colorOriginalLetra;
+            Thread.Sleep(1500);
             return true;
 
         }
         else
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\nEl carrito ha sido vaciado.");
+            Console.ForegroundColor = colorOriginalLetra;
+            Thread.Sleep(1500);
             return false;
         }
         Thread.Sleep(1500);
     }
 
-
-
-
-    static bool Registro(bool registro)
+    static bool Registro(bool registro)// Permite al usuario registrarse en el sistema.
     {
-
         Console.Clear();
-        Console.Write("Ingrese su nombre completo: ");
-        nombreCompleto = Console.ReadLine();
-        Console.Write("\nIngrese su telefóno: ");
-        telefono = Console.ReadLine();
-        while (DocumentoValido == false)
+        Console.CursorVisible = true;
+        if(registro == false)
         {
-            Console.Write("\nIngrese su documento(xx.xxx.xxx):");
-            documento = Console.ReadLine();
-            foreach (char caracterDocumento in documento)
+            Console.Write("Ingrese su nombre completo: ");
+            nombreCompleto = Console.ReadLine();
+            Console.Write("\nIngrese su telefóno: ");
+            telefono = Console.ReadLine();
+            while (DocumentoValido == false) // Valida el formato del número de documento.
             {
-                if (caracterDocumento == '.')
-                {
-                    contadorPuntosDocumento++;
-                }
-                contadorCaracteresDocumento++;
-            }
-            if (contadorPuntosDocumento == 2 && contadorCaracteresDocumento == 10)
-            {
-                DocumentoValido = true;
-
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("El documento no es valido. Escribalo de nuevo.");
-                Console.ForegroundColor = colorOriginalLetra;
                 contadorCaracteresDocumento = 0;
                 contadorPuntosDocumento = 0;
-            }
-        }
-        ;
-        while (correoElectronicoValido == false)
-        {
-            Console.Write("\nIngrese su correo electronico: ");
-            correoElectronico = Console.ReadLine();
-            foreach (char caracter in correoElectronico)
-            {
-                if (caracter == '@')
+                Console.Write("\nIngrese su documento(xx.xxx.xxx):");
+                documento = Console.ReadLine();
+                foreach (char caracterDocumento in documento)
                 {
-                    tieneArrobaCorreo = true;
+                    if (caracterDocumento == '.')
+                    {
+                        contadorPuntosDocumento++;
+                    }
+                    contadorCaracteresDocumento++;
                 }
-                if (caracter == '.')
+                if (contadorPuntosDocumento == 2 && contadorCaracteresDocumento == 10)
                 {
-                    tienePuntoCorreo = true;
+                    DocumentoValido = true;
+
                 }
-                contadorCaracteresCorreo++;
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El documento no es valido. Escribalo de nuevo.");
+                    Console.ForegroundColor = colorOriginalLetra;
+                    contadorCaracteresDocumento = 0;
+                    contadorPuntosDocumento = 0;
+                }
             }
-            if (tieneArrobaCorreo == true && tienePuntoCorreo == true && contadorCaracteresCorreo > 10)
+
+            while (correoElectronicoValido == false)// Valida el formato del correo electrónico.
             {
-                correoElectronicoValido = true;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Su correo es invalido. Escribalo de nuevo.");
-                Console.ForegroundColor = colorOriginalLetra;
+                tieneArrobaCorreo = false;
+                tienePuntoCorreo = false;
                 contadorCaracteresCorreo = 0;
-            }
+                Console.Write("\nIngrese su correo electrónico: ");
+                correoElectronico = Console.ReadLine();
+                foreach (char caracter in correoElectronico)
+                {
+                    if (caracter == '@')
+                    {
+                        tieneArrobaCorreo = true;
+                    }
+                    if (caracter == '.')
+                    {
+                        tienePuntoCorreo = true;
+                    }
+                    contadorCaracteresCorreo++;
+                }
+                if (tieneArrobaCorreo == true && tienePuntoCorreo == true && contadorCaracteresCorreo > 10)
+                {
+                    correoElectronicoValido = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Su correo es invalido. Escribalo de nuevo.");
+                    Console.ForegroundColor = colorOriginalLetra;
+                    contadorCaracteresCorreo = 0;
+                }
 
+            }
+            Console.Write("\nIngrese su nombre de usuario: ");
+            nombreUsuario = Console.ReadLine();
+            Console.Write("\nIngrese su contraseña: ");
+            contraseña = Console.ReadLine();
+            return true;
+            Thread.Sleep(1500);
         }
-        Console.Write("\nIngrese su nombre de usuario: ");
-        nombreUsuario = Console.ReadLine();
-        Console.Write("\nIngrese su contraseña: ");
-        contraseña = Console.ReadLine();
-        return true;
-        Thread.Sleep(1500);
-    }
-
-
-
-
-    static bool InicioDeSesión(bool sesiónIniciada)
-    {
-        Console.Clear();
-        while (sesiónIniciada == false && contadorIntentos > 0)
+        else
         {
-            Console.Write("Ingrese el nombre de usuario registrado: ");
-            string nombreUsuarioRegistrado = Console.ReadLine();
-
-            if (nombreUsuario != nombreUsuarioRegistrado)
-            {
-                contadorIntentos--;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nEl usuario que ingresó es incorrecto o no existe. Le quedan {contadorIntentos} intentos.");
-                Console.ForegroundColor = colorOriginalLetra;
-
-                if (contadorIntentos == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Se quedó sin intentos. Inténtelo de nuevo más tarde.");
-                    Console.ForegroundColor = colorOriginalLetra;
-                    return false;
-                }
-
-                continue;
-            }
-
-            Console.Write("\nIngrese la contraseña: ");
-            string contraseñaRegistrada = Console.ReadLine();
-
-            if (contraseña != contraseñaRegistrada)
-            {
-                contadorIntentos--;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nLa contraseña es incorrecta. Le quedan {contadorIntentos} intentos. Ingrese los datos nuevamente.");
-                Console.ForegroundColor = colorOriginalLetra;
-
-                if (contadorIntentos == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Se quedó sin intentos. Inténtelo de nuevo más tarde.");
-                    Console.ForegroundColor = colorOriginalLetra;
-                    return false;
-                }
-
-                continue;
-            }
-
-            Console.WriteLine("\nInicio de sesión exitoso.");
+            Console.Clear();
+            Console.WriteLine("Usted ya se registró.");
+            Thread.Sleep(1500);
             return true;
 
+
         }
 
-        return false;
-        Thread.Sleep(1500);
+        
     }
 
+    static bool InicioDeSesión(bool sesiónIniciada)// Permite al usuario iniciar sesión en el sistema.
+    {
+        if (sesiónIniciada == false)
+        {
+            Console.Clear();
+            Console.CursorVisible = true;
+
+            contadorIntentos = 3;
+
+            while (sesiónIniciada == false && contadorIntentos > 0)// Verifica si los datos de inicio de sesión son correctos.
+            {
+                Console.Write("Ingrese el nombre de usuario registrado: ");
+                string nombreUsuarioRegistrado = Console.ReadLine();
 
 
-    static void BorrarDatos()
+                if (nombreUsuario != nombreUsuarioRegistrado)
+                {
+                    contadorIntentos--;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\nEl usuario que ingresó es incorrecto o no existe. Le queda/n {contadorIntentos} intento/s.");
+                    Console.ForegroundColor = colorOriginalLetra;
+
+                    if (contadorIntentos == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Se quedó sin intentos. Inténtelo de nuevo más tarde.");
+                        Console.ForegroundColor = colorOriginalLetra;
+                        Thread.Sleep(2000);
+                        return false;
+                    }
+
+
+
+                    continue;
+                }
+
+                Console.Write("\nIngrese la contraseña: ");
+                string contraseñaRegistrada = Console.ReadLine();
+
+
+                if (contraseña != contraseñaRegistrada)// Verifica si los datos de inicio de sesión son correctos.
+                {
+                    contadorIntentos--;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\nLa contraseña es incorrecta. Le queda/n {contadorIntentos} intento/s. Ingrese los datos nuevamente.");
+                    Console.ForegroundColor = colorOriginalLetra;
+
+                    if (contadorIntentos == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Se quedó sin intentos. Inténtelo de nuevo más tarde.");
+                        Console.ForegroundColor = colorOriginalLetra;
+                        Thread.Sleep(2000);
+                        return false;
+                    }
+
+
+                    continue;
+                }
+
+                Thread.Sleep(1000);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nInicio de sesión exitoso!");
+                Console.ForegroundColor = colorOriginalLetra;
+                Thread.Sleep(1000);
+
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Usted ya inicio sesión.");
+            Thread.Sleep(1500);
+            return true;
+        }
+
+    }     
+    static void BorrarDatos()// Borra los datos del usuario.
     {
         Console.Clear();
-        nombreCompleto = "";
-        telefono = "";
-        documento = "";
-        correoElectronico = "";
-        nombreUsuario = "";
-        contraseña = "";
+        Console.CursorVisible = true;
 
-        registrado = false;
-        sesiónIniciada = false;
-        tieneArrobaCorreo = false;
-        tienePuntoCorreo = false;
-        contadorCaracteresDocumento = 0;
-        contadorPuntosDocumento = 0;
-        contadorCaracteresCorreo = 0;
-        correoElectronicoValido = false;
-        agregoCarritoVuelo = false;
-        numeroVueloCorrecto = false;
-        DocumentoValido = false;
-        contadorIntentos = 3;
+        Console.Write("\nEsta seguro de querer borrar sus datos? (S/N): ");
+        string datosBorrar = Console.ReadLine().ToLower();
 
+        if (datosBorrar == "s"||datosBorrar=="S")
+        {
+            nombreCompleto = "";
+            telefono = "";
+            documento = "";
+            correoElectronico = "";
+            nombreUsuario = "";
+            contraseña = "";
 
-        Console.WriteLine("Sus datos han sido borrados correctamente.");
+            registrado = false;
+            sesiónIniciada = false;
+            tieneArrobaCorreo = false;
+            tienePuntoCorreo = false;
+            contadorCaracteresDocumento = 0;
+            contadorPuntosDocumento = 0;
+            contadorCaracteresCorreo = 0;
+            correoElectronicoValido = false;
+            agregoCarritoVuelo = false;
+            numeroVueloCorrecto = false;
+            DocumentoValido = false;
+            contadorIntentos = 3;
+
+            Console.WriteLine("\nSus datos han sido borrados correctamente.");
+            Thread.Sleep(1500);
+
+        }
+        else if(datosBorrar =="n"||datosBorrar=="N")
+        {
+            Console.WriteLine("\nNo se borraran sus datos.");
+            Thread.Sleep(1000);
+        }
     }
-
-
-
-
 }
