@@ -60,6 +60,7 @@
         Console.WriteLine("--------------------------------------");
         ConsoleColor colorCeleste = ConsoleColor.Cyan;
         ConsoleColor colorBlanco = ConsoleColor.White;
+        ConsoleColor colorAmarillo = ConsoleColor.Yellow;
         int ancho = 40;
         int alto = 9;
 
@@ -115,6 +116,14 @@
                     Console.WriteLine($" {MenuNumeros(i)}");
                 }
             }
+
+            //Console.WriteLine((opcion == 0 ? "> " : "  ") + "Ver vuelos disponibles.");
+            //Console.WriteLine((opcion == 1 ? "> " : "  ") + "Agregar al carrito.");
+            //Console.WriteLine((opcion == 2 ? "> " : "  ") + "Pagar pasajes.");
+            //Console.WriteLine((opcion == 3 ? "> " : "  ") + "Registrarse.");
+            //Console.WriteLine((opcion == 4 ? "> " : "  ") + "Iniciar sesión.");
+            //Console.WriteLine((opcion == 5 ? "> " : "  ") + "Borrar datos cargados.");
+            //Console.WriteLine((opcion == 6 ? "> " : "  ") + "Salir del sistema.");
 
             Flecha = Console.ReadKey(true);
 
